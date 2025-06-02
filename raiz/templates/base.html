@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Calculadora{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'raiz/style.css' %}">
+    <script src="{% static 'raiz/script.js' %}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+    <script>
+        window.MathJax = {
+            tex: { inlineMath: [['\\(', '\\)']] },
+            svg: { fontCache: 'global' }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo">
+        <img src="{% static 'raiz/img/logo.png' %}" alt="Logo">
+        <span>Calculadora de Raíces – <strong>ANDERSSON</strong></span>
+    </div>
+    <div class="idioma">ES</div>
+</header>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

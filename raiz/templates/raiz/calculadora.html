@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="buscador">
+    <input type="text" id="entrada_funcion" placeholder="Introduce una ecuación o un polinomio">
+    <select id="selector_metodo">
+        <option value="">Selecciona un método</option>
+        <option value="biseccion">Bisección</option>
+        <option value="newton">Newton-Raphson</option>
+        <option value="newton_mod">Newton-Raphson Modificado</option>
+    </select>
+    <button type="button" class="resolver-btn" onclick="mostrarPaso2()">Resolver</button>
+</div>
+
+<div class="teclado">
+    <button onclick="insertar('x')">x</button>
+    <button onclick="insertar('^')">^</button>
+    <button onclick="insertar('sqrt(')">√</button>
+    <button onclick="insertar('abs(')">|x|</button>
+    <button onclick="insertar('+')">+</button>
+    <button onclick="insertar('-')">−</button>
+    <button onclick="insertar('*')">×</button>
+    <button onclick="insertar('/')">÷</button>
+    <button onclick="insertar('(')">(</button>
+    <button onclick="insertar(')')">)</button>
+    <button onclick="insertar('.')">.</button>
+    <button onclick="borrar()">←</button>
+    <button onclick="insertar('sin(')">sin</button>
+    <button onclick="insertar('cos(')">cos</button>
+    <button onclick="insertar('tan(')">tan</button>
+    <button onclick="insertar('log(')">log</button>
+    <button onclick="insertar('ln(')">ln</button>
+    <button onclick="insertar('exp(')">exp</button>
+    <button onclick="insertar('pi')">π</button>
+    <button onclick="insertar('E')">e</button>
+    <button onclick="insertar(',')">,</button>
+    <button onclick="insertar('**')">**</button>
+    <button onclick="insertar('%')">%</button>
+    <button onclick="insertar('//')">//</button>
+    <button onclick="insertar('7')">7</button>
+    <button onclick="insertar('8')">8</button>
+    <button onclick="insertar('9')">9</button>
+    <button onclick="insertar('4')">4</button>
+    <button onclick="insertar('5')">5</button>
+    <button onclick="insertar('6')">6</button>
+    <button onclick="insertar('1')">1</button>
+    <button onclick="insertar('2')">2</button>
+    <button onclick="insertar('3')">3</button>
+    <button onclick="insertar('0')">0</button>
+</div>
+
+<div id="contenedor_opciones_wrapper">
+<div id="contenedor_opciones" class="pantalla-confirmacion" style="display: none;">
+    <div class="card-funcion">
+        <h2 class="titulo-funcion">Función ingresada</h2>
+        <div id="funcion_mostrada" class="formula-latex"></div>
+    </div>
+
+    <div id="mensaje_verificacion" class="mensaje-validacion"></div>
+    <div id="verificacion_texto" class="texto-verificacion"></div>
+
+    <h3 id="subtitulo_metodo" class="subtitulo-metodo"></h3>
+
+    <form method="post" id="form_datos" class="card-formulario" action="{% url 'calculadora' %}">
+        {% csrf_token %}
+        <input type="hidden" name="funcion" id="funcion_final">
+        <input type="hidden" name="metodo" id="metodo_final">
+        <input type="hidden" name="fase" value="final">
+
+        <div id="campos_dinamicos" class="campo-contenedor">
+            <!-- Campos dinámicos -->
+        </div>
+
+        <div class="campo">
+            <label for="tolerancia">Tolerancia:</label>
+            <input type="number" step="any" name="tolerancia" required>
+        </div>
+
+        <div class="campo">
+            <label for="max_iter">Máx. iteraciones:</label>
+            <input type="number" name="max_iter" value="100" required>
+        </div>
+
+        <div class="botones-accion">
+            <button type="submit" class="btn-verde">Finalizar cálculo</button>
+            <button type="button" class="btn-gris" onclick="regresarPaso1()">Regresar</button>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

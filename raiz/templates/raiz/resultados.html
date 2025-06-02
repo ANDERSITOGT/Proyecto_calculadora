@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="resultado-wrapper" style="display: flex; flex-direction: column; gap: 20px; padding: 20px;">
+
+    <!-- Panel superior con función y resumen -->
+<div style="text-align: center; margin-top: 30px;">
+    <a href="{% url 'calculadora' %}" class="btn-gris" style="padding: 10px 20px; border-radius: 6px; background-color: #ddd; text-decoration: none; color: #333;">Volver al inicio</a>
+</div>
+
+    <div class="panel-superior" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+        <div class="panel-funcion" style="flex: 2;">
+            <h2>Resultados del Método de Bisección</h2>
+            <p><strong>Función:</strong> <span style="font-size: 22px;">\[{{ resultado.latex_funcion }}\]</span></p>
+            <p><strong>Método:</strong> {{ resultado.metodo }}</p>
+            <p><strong>Raíz Aproximada:</strong> {{ resultado.raiz }}</p>
+        </div>
+
+        <div class="panel-parametros" style="flex: 1; background: #f9f9f9; padding: 15px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+            <h4>Parámetros utilizados</h4>
+            {% if resultado.a %}<p><strong>a:</strong> {{ resultado.a }}</p>{% endif %}
+            {% if resultado.b %}<p><strong>b:</strong> {{ resultado.b }}</p>{% endif %}
+            {% if resultado.x0 %}<p><strong>x₀:</strong> {{ resultado.x0 }}</p>{% endif %}
+            <p><strong>Tolerancia:</strong> {{ resultado.tolerancia }}</p>
+            <p><strong>Máx. Iteraciones:</strong> {{ resultado.max_iter }}</p>
+        </div>
+    </div>
+
+    <!-- Tabla de iteraciones -->
+    <div class="panel-tabla" style="overflow-x: auto;">
+        <table class="tabla-resultados" style="width: 100%; border-collapse: collapse;">
+            <thead style="background-color: #f0f0f0;">
+                <tr>
+                    <th>Iteración</th>
+                    <th>a</th>
+                    <th>b</th>
+                    <th>c</th>
+                    <th>f(c)</th>
+                    <th>Error</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fila in resultado.tabla %}
+                <tr style="text-align: center; background-color: {% cycle '#ffffff' '#fafafa' %};">
+                    <td>{{ fila.iteracion }}</td>
+                    <td>{{ fila.a }}</td>
+                    <td>{{ fila.b }}</td>
+                    <td>{{ fila.c }}</td>
+                    <td>{{ fila.fc }}</td>
+                    <td>{{ fila.error }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Panel gráfico -->
+    <div class="panel-derecho" style="margin-top: 30px;">
+        <h3>Gráfica del ajuste</h3>
+        <div id="grafica_ajuste" style="width: 100%; height: 300px; border: 1px solid #ccc; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+            <!-- Aquí se insertará la gráfica en el futuro -->
+            <span>Gráfica pendiente</span>
+        </div>
+    </div>
+</div>
+
+
+    <div style="text-align: center; margin-top: 30px;">
+    <a href="{% url 'calculadora' %}" class="btn-gris" style="padding: 10px 20px; border-radius: 6px; background-color: #ddd; text-decoration: none; color: #333;">Volver al inicio</a>
+    </div>
+
+
+<script>MathJax.typeset();</script>
+{% endblock %}

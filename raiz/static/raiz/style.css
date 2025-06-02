@@ -1,0 +1,215 @@
+/* ENCABEZADO */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 10px 30px;
+    border-bottom: 2px solid #ddd;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    height: 40px;
+}
+
+.idioma {
+    font-weight: bold;
+    color: #555;
+}
+
+/* BARRA DE ENTRADA */
+.buscador {
+    display: flex;
+    justify-content: center;
+    margin: 30px auto 10px;
+    gap: 10px;
+}
+
+.buscador input {
+    width: 50%;
+    padding: 10px;
+    font-size: 18px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+.resolver-btn {
+    background-color: #8fce00;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* TECLADO */
+
+.teclado {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1px;
+    max-width: 500px;
+    margin: 0 auto 30px;
+    padding: 10px;
+}
+
+.teclado button {
+    padding: 12px;
+    font-size: 16px;
+    background-color: #898989;
+    color: white;
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+}
+
+.teclado button:hover {
+    background-color: #222;
+}
+
+.pantalla-confirmacion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    width: 100%;
+    padding: 30px 15px;
+}
+
+.card-funcion {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom: 25px;
+    width: 100%;
+    max-width: 700px;
+    text-align: center;
+}
+
+.titulo-funcion {
+    margin-bottom: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+}
+
+.formula-latex {
+    font-size: 38px;
+    color: #000; /* negro puro */
+    font-weight: 500;
+    word-break: break-word;
+}
+
+
+.card-formulario {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 700px;
+}
+
+.campo-contenedor {
+    margin-bottom: 20px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.campo label {
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.campo input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+.botones-accion {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-verde {
+    background-color: #8fce00;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-verde:hover {
+    background-color: #7bb800;
+}
+
+.btn-gris {
+    background-color: #ddd;
+    color: #333;
+    border: none;
+    padding: 10px 25px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-gris:hover {
+    background-color: #ccc;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .pantalla-confirmacion {
+        padding: 15px;
+    }
+
+    .card-funcion, .card-formulario {
+        padding: 20px;
+    }
+
+    .formula-latex {
+        font-size: 22px;
+    }
+
+    .btn-verde, .btn-gris {
+        flex: 1;
+        font-size: 15px;
+        padding: 10px;
+    }
+
+    .botones-accion {
+        flex-direction: column;
+    }
+}
+
+.subtitulo-metodo {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#contenedor_opciones_wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
