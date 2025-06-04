@@ -22,14 +22,10 @@ function borrar() {
 
 function formatearNombreMetodo(metodo) {
     switch (metodo) {
-        case "biseccion":
-            return "Bisección";
-        case "newton":
-            return "Newton-Raphson";
-        case "newton_mod":
-            return "Newton-Raphson Modificado";
-        default:
-            return metodo;
+        case "biseccion": return "Bisección";
+        case "newton": return "Newton-Raphson";
+        case "newton_mod": return "Newton-Raphson Modificado";
+        default: return metodo;
     }
 }
 
@@ -56,6 +52,7 @@ function mostrarPaso2() {
     document.getElementById("funcion_mostrada").innerHTML = `\\[${latex}\\]`;
     document.getElementById("funcion_final").value = funcionPython;
     document.getElementById("metodo_final").value = metodo;
+    document.getElementById("latex_funcion_final").value = latex;
 
     document.getElementById("mensaje_verificacion").innerText = esPolinomio ? "Polinomio válido" : "No es un polinomio válido";
     document.getElementById("verificacion_texto").innerText = funcionVerificacion;
@@ -63,7 +60,7 @@ function mostrarPaso2() {
     document.getElementById("subtitulo_metodo").innerText = `Completa los datos para el método ${formatearNombreMetodo(metodo)}:`;
 
     const camposContenedor = document.getElementById("campos_dinamicos");
-    camposContenedor.innerHTML = ""; // limpia anteriores
+    camposContenedor.innerHTML = "";
 
     if (metodo === "biseccion") {
         camposContenedor.innerHTML += `
@@ -115,7 +112,7 @@ function validarFormulario(event) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("form_datos");
     if (form) {
         form.addEventListener("submit", validarFormulario);

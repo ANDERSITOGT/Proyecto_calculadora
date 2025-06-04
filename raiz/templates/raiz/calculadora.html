@@ -1,5 +1,8 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
+
+
 <div class="buscador">
     <input type="text" id="entrada_funcion" placeholder="Introduce una ecuación o un polinomio">
     <select id="selector_metodo">
@@ -52,7 +55,7 @@
 <div id="contenedor_opciones" class="pantalla-confirmacion" style="display: none;">
     <div class="card-funcion">
         <h2 class="titulo-funcion">Función ingresada</h2>
-        <div id="funcion_mostrada" class="formula-latex"></div>
+        <div id="funcion_mostrada" class="formula-latex">\[ \]</div>
     </div>
 
     <div id="mensaje_verificacion" class="mensaje-validacion"></div>
@@ -64,6 +67,7 @@
         {% csrf_token %}
         <input type="hidden" name="funcion" id="funcion_final">
         <input type="hidden" name="metodo" id="metodo_final">
+        <input type="hidden" name="latex_funcion" id="latex_funcion_final">
         <input type="hidden" name="fase" value="final">
 
         <div id="campos_dinamicos" class="campo-contenedor">
@@ -87,4 +91,5 @@
     </form>
 </div>
 </div>
+
 {% endblock %}
