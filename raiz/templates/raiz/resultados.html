@@ -71,7 +71,11 @@
 <div class="bloque-grafica">
     <h3 class="verde">Gráfica del ajuste</h3>
     <div id="grafica_ajuste" class="contenedor-grafica">
-        <span>Gráfica pendiente</span>
+        {% if resultado.grafica %}
+            <img src="{% static 'raiz/img/' %}{{ resultado.grafica }}" alt="Gráfica del ajuste" style="max-width:100%; border: 1px solid #ccc; padding: 5px;">
+        {% else %}
+            <span>Gráfica pendiente</span>
+        {% endif %}
     </div>
 </div>
 

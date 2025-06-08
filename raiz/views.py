@@ -2,8 +2,17 @@ from django.shortcuts import render, redirect
 from sympy import symbols, sympify, latex, lambdify
 from .forms import FuncionForm
 from .metodos.biseccion import metodo_biseccion
+from .utils.graficador import graficar_funcion  # ✅ nuevo import
+import re
 
 x = symbols('x')
+
+def insertar_multiplicaciones(expr):
+    expr = re.sub(r'(\d)([a-zA-Z])', r'\1*\2', expr)
+    expr = re.sub(r'([a-zA-Z])\(', r'\1*(', expr)
+    expr = re.sub(r'\)([a-zA-Z])', r')*\1', expr)
+    expr = re.sub(r'\)\(', r')*(', expr)
+    return expr
 
 def calcular_raiz(request):
     if (
@@ -27,11 +36,14 @@ def calcular_raiz(request):
         except:
             tolerancia = 1e-5
 
+        # Procesar función
+        funcion_preparada = insertar_multiplicaciones(funcion_original.replace('^', '**'))
+
         # Generar LaTeX si no viene del frontend
         latex_funcion = request.POST.get('latex_funcion', '').strip()
         if not latex_funcion:
             try:
-                expr = sympify(funcion_original.replace('^', '**'))
+                expr = sympify(funcion_preparada)
                 latex_funcion = latex(expr)
             except:
                 latex_funcion = funcion_original
@@ -49,22 +61,31 @@ def calcular_raiz(request):
 
         if metodo == 'biseccion':
             try:
-                f_expr = sympify(funcion_original.replace('^', '**'))
+                f_expr = sympify(funcion_preparada)
                 f_lambd = lambdify(x, f_expr, 'numpy')
                 raiz, tabla, pasos = metodo_biseccion(f_lambd, float(a), float(b), tolerancia, max_iter)
                 resultado['raiz'] = round(raiz, 6)
                 resultado['tabla'] = tabla
                 resultado['pasos'] = pasos
+
+                # ✅ Generar gráfica del ajuste
+                nombre_imagen = "grafico_biseccion.png"
+                graficar_funcion(f_lambd, a, b, raiz, nombre_imagen)
+                resultado['grafica'] = nombre_imagen
+
             except Exception as e:
                 resultado['error'] = str(e)
                 resultado['tabla'] = []
                 resultado['pasos'] = [f"Error: {str(e)}"]
                 resultado['raiz'] = 'No definida'
+                resultado['grafica'] = None  # en caso de error, no hay gráfica
 
         if 'tabla' not in resultado:
             resultado['tabla'] = []
         if 'pasos' not in resultado:
             resultado['pasos'] = []
+        if 'grafica' not in resultado:
+            resultado['grafica'] = None
 
         request.session['resultado'] = resultado
         return redirect('ver_resultado')
